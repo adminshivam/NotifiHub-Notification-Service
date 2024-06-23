@@ -1,12 +1,10 @@
 import { Request, Response, NextFunction, response } from "express";
-import { uuid } from "uuidv4";
+import { v4 as uuid } from "uuid";
 import { IResponse } from "../dtos/response.dto";
 import { responseType } from "../enums/response.type";
 
 const LoggerMiddleware = (req: Request, res: Response, next: NextFunction) => {
   // log the request
-  console.log("inside logger Layer....");
-
   const correlationId = uuid();
   res.locals.metaData = {};
   res.locals.metaData.correlationId = correlationId;
@@ -33,7 +31,13 @@ const LoggerMiddleware = (req: Request, res: Response, next: NextFunction) => {
     Log.metaData = res.locals.metaData;
     Log.response.statusCode = res.statusCode;
     Log.response.body = res.locals.data;
-    console.log(uuid(), Log);
+    console.log(
+      `--------------------------LOG: STARTED [${correlationId}]-----------------------------`
+    );
+    console.log(JSON.stringify(Log));
+    console.log(
+      `--------------------------LOG: ENDED [${correlationId}]-----------------------------`
+    );
   });
 
   next();

@@ -14,8 +14,8 @@ const pool = mysql.createPool({
 export const getMySQLConnection: any = async () => {
   let conn;
   try {
+    console.log("Connected to MySQL");
     conn = await pool.getConnection();
-    console.log("Connected as id", conn.threadId);
     return conn;
   } catch (err) {
     console.error("Error connecting: " + err);
@@ -23,3 +23,5 @@ export const getMySQLConnection: any = async () => {
     if (conn) conn.release();
   }
 };
+
+getMySQLConnection();

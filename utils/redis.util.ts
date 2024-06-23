@@ -22,7 +22,7 @@ const RedisCacheManager = {
     try {
       // Set a value
       await redis.set(key, JSON.stringify(value));
-      console.log("Key set");
+      console.log("Key set", { key, value });
     } catch (err) {
       console.error("Error during Redis operations:", err);
     }
