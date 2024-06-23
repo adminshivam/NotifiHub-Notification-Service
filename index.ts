@@ -1,9 +1,11 @@
-import express from 'express';
+import express, { Request, Response, NextFunction } from 'express';
+import { LoggerMiddleware } from './middlewares/logger.middleware';
 import dependencyRouter from './dependencies';
 const app = express();
 const port = 5000;
 
 // use logger middleware
+app.use(LoggerMiddleware);
 
 // Use the routes
 app.use(dependencyRouter);
