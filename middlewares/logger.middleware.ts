@@ -1,12 +1,18 @@
-import { Request, Response, NextFunction } from "express";
+import { Request, Response, NextFunction, response } from "express";
+import { uuid } from "uuidv4";
+import { IResponse } from "../dtos/Reponse.dto";
+import { responseType } from "../enums/response.type";
 
 const LoggerMiddleware = (req: Request, res: Response, next: NextFunction) => {
   // log the request
-  const start = Date.now();
-  const oldJson = res.json;
+  console.log("inside logger Layer....");
+
+  const correlationId = uuid();
+  res.locals.metaData = {};
+  res.locals.metaData.correlationId = correlationId;
 
   const Log = {
-    request : {
+    request: {
       url: req.url,
       path: req.path,
       method: req.method,
@@ -14,28 +20,23 @@ const LoggerMiddleware = (req: Request, res: Response, next: NextFunction) => {
       params: req.params,
       headers: req.headers,
     },
-    response : {
+    response: {
       statusCode: 0,
       body: {},
     },
-    meta: {
-      requestStartTime: start,
-      requestDuration: -1,
-    }
+    metaData: {
+      correlationId: correlationId,
+    },
   };
 
-  res.json = function (...args: [body?: any]) {
-    Log.meta.requestDuration = Date.now() - start;
+  res.on("finish", () => {
+    Log.metaData = res.locals.metaData;
     Log.response.statusCode = res.statusCode;
-    Log.response.body = args[0];
-    return oldJson.apply(res, args);
-  };
-
-  res.on('finish', () => {
-    console.log(Log);
+    Log.response.body = res.locals.data;
+    console.log(uuid(), Log);
   });
 
   next();
-}
+};
 
-export {LoggerMiddleware};
+export { LoggerMiddleware };
