@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction, response } from "express";
 import { uuid } from "uuidv4";
-import { IResponse } from "../dtos/Reponse.dto";
+import { IResponse } from "../dtos/response.dto";
 import { responseType } from "../enums/response.type";
 
 const LoggerMiddleware = (req: Request, res: Response, next: NextFunction) => {

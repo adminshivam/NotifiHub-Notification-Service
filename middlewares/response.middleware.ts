@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import { IResponse } from "../dtos/Reponse.dto";
+import { IResponse } from "../dtos/response.dto";
 import { responseType } from "../enums/response.type";
 
 const sendSuccessResponse = (
@@ -10,7 +10,8 @@ const sendSuccessResponse = (
   const successResponse: IResponse = {
     status: true,
     timestamp: Date.now(),
-    correlationId: res.locals && res.locals.metaData && res.locals.metaData.correlationId,
+    correlationId:
+      res.locals && res.locals.metaData && res.locals.metaData.correlationId,
     message: responseType.success,
     data: res.locals.data,
   };

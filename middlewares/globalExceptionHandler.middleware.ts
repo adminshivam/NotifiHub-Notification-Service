@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import { IResponse } from "../dtos/Reponse.dto";
+import { IResponse } from "../dtos/response.dto";
 import { responseType } from "../enums/response.type";
 
 const sendErrorResponse = (
