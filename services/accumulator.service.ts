@@ -1,6 +1,9 @@
-import { getMySQLConnection } from "../utils/mysql.util";
+import accumulatorRepository from "../models/accumulator.model";
 
-export const accumulator = async () => {
-  const connection = await getMySQLConnection();
-    
-};
+const accumulatorService = {
+  getCustomerData: async () => {
+   return await accumulatorRepository.accumulatorModel();
+ }
+} 
+
+export default accumulatorService;

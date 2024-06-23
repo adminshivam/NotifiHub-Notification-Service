@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { accumulator } from "../services/accumulator.service";
+import accumulatorService from "../services/accumulator.service";
 
 const getAccumulators = async (
   req: Request,
@@ -7,7 +7,7 @@ const getAccumulators = async (
   next: NextFunction
 ) => {
   let data: any = { jersey: "abc", jerse2y: "abc", jerfsey: "abc" };
-  data = await accumulator();
+  data = await accumulatorService.getCustomerData();
   res.locals.data = data;
   next();
 };
