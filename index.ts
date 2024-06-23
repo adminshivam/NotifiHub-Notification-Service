@@ -1,11 +1,12 @@
-const express = require('express');
+import express from 'express';
+import dependencyRouter from './dependencies';
 const app = express();
-const port = 3000;
+const port = 5000;
 
-app.get('/', (req:any, res:any) => {
-  res.send('Hello World!');
-  console.log("Hit main");
-});
+// use logger middleware
+
+// Use the routes
+app.use(dependencyRouter);
 
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
