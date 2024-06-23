@@ -21,7 +21,7 @@ const sendErrorResponse = (
   res.status(500).send(errorResponse);
 };
 
-const GlobalExceptionMiddleware = (
+const globalExceptionMiddleware = (
   err: Error,
   req: Request,
   res: Response,
@@ -31,4 +31,4 @@ const GlobalExceptionMiddleware = (
   sendErrorResponse(err, req, res, next);
 };
 
-export { GlobalExceptionMiddleware };
+export { globalExceptionMiddleware };

@@ -1,6 +1,6 @@
 import express, { NextFunction } from "express";
 import { LoggerMiddleware } from "./middlewares/logger.middleware";
-import { GlobalExceptionMiddleware } from "./middlewares/globalExceptionHandler.middleware";
+import { globalExceptionMiddleware } from "./middlewares/globalExceptionHandler.middleware";
 import dependencyRouter from "./dependencies";
 import { responseMiddleware } from "./middlewares/response.middleware";
 const app = express();
@@ -16,7 +16,7 @@ app.use(dependencyRouter);
 app.use(responseMiddleware);
 
 // use global exception middleware
-app.use(GlobalExceptionMiddleware);
+app.use(globalExceptionMiddleware);
 
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
